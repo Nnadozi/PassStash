@@ -9,7 +9,7 @@ const AddItem = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  async function setItem({navigation}) {
+  async function setItem() {
     try {
       const item = {
         identifier: identifier,
