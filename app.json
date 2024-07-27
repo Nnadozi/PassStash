@@ -12,13 +12,20 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zixonn.UserPassHolder"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ],
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.zixonn.UserPassHolder"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,7 +36,18 @@
         {
           "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
         }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-8705039555355167~6824123442"
+        }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f9ead03e-d964-44d0-9035-498a974653c1"
+      }
+    }
   }
 }

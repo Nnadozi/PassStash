@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
         data={itemsArray}
         renderItem={({ item, index }) =>
           <View style={[styles.item, index === itemsArray.length - 1 && styles.lastItem]}>
-            <Text>{item.substring(0,item.indexOf("_"))}</Text>
+            <Text style = {{maxWidth:"80%"}}>{item.substring(0,item.indexOf("_"))}</Text>
             <Button title="→" onPress={() => navigation.navigate("View Item", { key: item })} />
           </View>
         }

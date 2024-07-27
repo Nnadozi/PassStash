@@ -6,6 +6,7 @@ import AddItem from './screens/AddItem';
 import ViewItem from './screens/ViewItem';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Button } from 'react-native';
 
 
 const Stack = createNativeStackNavigator();
@@ -13,11 +14,9 @@ const Stack = createNativeStackNavigator();
 function AddItemIcon() {
   const navigation = useNavigation();
   return (
-    <Ionicons
+    <Button
       onPress={() => navigation.navigate('Add Item')}
-      name="add"
-      size={20}
-      color="#007AFF"
+      title = "Add"
     />
   );
 }
@@ -35,10 +34,19 @@ export default function App() {
           component={Home}
           options={{
             headerTitle: 'Items',
-            headerLeft: () => <AddItemIcon />
+            headerLeft: () => <AddItemIcon />,
+            headerTitleAlign:"center"
           }}
         />
-        <Stack.Screen name="Add Item" component={AddItem} options={{presentation:"modal"}} />
+        <Stack.Screen
+           name="Add Item" 
+           component={AddItem} 
+           options={{
+            presentation:"modal",  
+            headerTitleAlign:"center",
+            headerBackVisible:false
+          }}
+        />
         <Stack.Screen name="View Item" component={ViewItem} />
       </Stack.Navigator>
     </NavigationContainer>

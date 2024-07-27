@@ -50,6 +50,7 @@ const ViewItem = ({ navigation, route }) => {
     }
   }
 
+  
   async function authenticate() {
     try {
       const { success } = await LocalAuthentication.authenticateAsync({
@@ -64,6 +65,7 @@ const ViewItem = ({ navigation, route }) => {
       console.error('Authentication failed:', error);
     }
   }
+    
 
   return (
     <View style={{ flex: 1 }}>
@@ -80,6 +82,7 @@ const ViewItem = ({ navigation, route }) => {
           {!showPassword && (
             <Button title="Authenticate to Reveal Password" onPress={authenticate} />
           )}
+          <View style = {{margin:'2%'}}></View>
           <Button color={"red"} title='Remove Item' onPress={removeItem} />
         </View>
       ) : (
@@ -95,7 +98,6 @@ const styles = StyleSheet.create({
   con: {
     marginVertical: '5%',
     marginHorizontal: '5%',
-    gap: '10%',
   },
   header: {
     fontWeight: 'bold',
@@ -103,5 +105,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+    marginVertical:"2%"
   },
 });
