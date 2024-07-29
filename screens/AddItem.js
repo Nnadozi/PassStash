@@ -1,7 +1,8 @@
-import { StyleSheet, TextInput, View, Button } from 'react-native';
+import { StyleSheet, TextInput, View, Button, Alert } from 'react-native';
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 
 const AddItem = () => {
   const navigation = useNavigation();
@@ -9,6 +10,8 @@ const AddItem = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
+  const {colors} = useTheme()
+  
   async function setItem() {
     try {
       const item = {
@@ -16,6 +19,12 @@ const AddItem = () => {
         userName: userName,
         password: password,
       };
+      const allKeys = await AsyncStorage.getAllKeys();
+      let serviceExists = allKeys.find(key => key === `${identifier}_info`)
+      if(serviceExists !== undefined){
+        Alert.alert("Error", "This service already exists. Please use a different identifier.")
+        return; 
+      }
       await AsyncStorage.setItem(`${identifier}_info`, JSON.stringify(item));
       navigation.goBack();
     } catch (error) {
@@ -28,24 +37,24 @@ const AddItem = () => {
       <TextInput
         value={identifier}
         onChangeText={text => setIdentifier(text)}
-        style={styles.input}
-        placeholder='Identifier (ex: Youtube)'
+        style={[styles.input,{borderColor:colors.border,color:colors.text}]}
+        placeholder='Service (example: Youtube)'
         placeholderTextColor={"lightgray"}
         maxLength={50}
       />
       <TextInput
         value={userName}
         onChangeText={text => setUserName(text)}
-        style={styles.input}
-        placeholder='Username / Email (ex: JohnDoe237)'
+        style={[styles.input,{borderColor:colors.border,color:colors.text}]}
+        placeholder='Username / Email (example: JohnDoe237)'
         placeholderTextColor={"lightgray"}
         maxLength={50}
       />
       <TextInput
         value={password}
         onChangeText={text => setPassword(text)}
-        style={styles.input}
-        placeholder='Password (ex: Password123)'
+        style={[styles.input,{borderColor:colors.border,color:colors.text}]}
+        placeholder='Password (example: Password123)'
         placeholderTextColor={"lightgray"}
         maxLength={50}
       />
@@ -54,7 +63,7 @@ const AddItem = () => {
         identifier.length === 0 || userName.length === 0 || password.length === 0 ? true : false
         } title="Create" onPress={() => setItem() }/>
       <View style = {{margin:'2%'}}></View>
-      <Button color={"red"} title = "Cancel" onPress={() => navigation.goBack()} />
+      <Button title = "Cancel" onPress={() => navigation.goBack()} />
     </View>
   );
 }
@@ -67,7 +76,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: "10%",
-    backgroundColor: '#fff'
   },
   input: {
     width: '100%',
@@ -77,6 +85,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    color: "gray"
   },
 });

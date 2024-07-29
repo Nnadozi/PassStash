@@ -2,8 +2,12 @@ import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 import React, { useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import {BannerAd,BannerAdSize,TestIds} from "react-native-google-mobile-ads"
+import {useTheme} from '@react-navigation/native';
 
 const Home = ({ navigation }) => {
+
+  const {colors} = useTheme()
   const [itemsArray, setItemsArray] = useState([]);
 
   const fetchItems = async () => {
@@ -27,13 +31,23 @@ const Home = ({ navigation }) => {
         style={{ width: "100%" }}
         data={itemsArray}
         renderItem={({ item, index }) =>
-          <View style={[styles.item, index === itemsArray.length - 1 && styles.lastItem]}>
-            <Text style = {{maxWidth:"80%"}}>{item.substring(0,item.indexOf("_"))}</Text>
+          <View style={[
+            styles.item, index === itemsArray.length - 1 && styles.lastItem,
+            {borderColor:colors.border,backgroundColor:colors.card}
+            ]}>
+            <Text style = {{maxWidth:"80%",color:colors.text}}>{item.substring(0,item.indexOf("_"))}</Text>
             <Button title="→" onPress={() => navigation.navigate("View Item", { key: item })} />
           </View>
         }
         keyExtractor={(item, index) => index.toString()}
       />
+      <BannerAd
+      unitId={TestIds.BANNER}
+       size={BannerAdSize.BANNER}
+       requestOptions={{
+        requestNonPersonalizedAdsOnly:true,
+       }}
+       />
     </View>
   );
 };
@@ -43,8 +57,6 @@ export default Home;
 const styles = StyleSheet.create({
   item: {
     borderTopWidth: 1,
-    borderColor: 'lightgray',
-    backgroundColor: 'white',
     width: '100%',
     paddingVertical: '3%',
     paddingHorizontal: "5%",
@@ -55,6 +67,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   lastItem: {
-    borderWidth: 1
+    borderTopWidth: 1,
+    borderBottomWidth:1
   },
 });

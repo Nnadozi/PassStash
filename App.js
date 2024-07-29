@@ -4,10 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from './screens/Home';
 import AddItem from './screens/AddItem';
 import ViewItem from './screens/ViewItem';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { Button } from 'react-native';
-
+import { useNavigation, DarkTheme,DefaultTheme } from '@react-navigation/native';
+import { Button,useColorScheme } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,9 +20,13 @@ function AddItemIcon() {
   );
 }
 
+
 export default function App() {
+  const scheme = useColorScheme();
   return (
-    <NavigationContainer>
+    <>
+    <StatusBar />
+    <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack.Navigator
         screenOptions={{
           gestureEnabled: false,
@@ -33,7 +36,7 @@ export default function App() {
           name="Items"
           component={Home}
           options={{
-            headerTitle: 'Items',
+            headerTitle: 'My Accounts',
             headerLeft: () => <AddItemIcon />,
             headerTitleAlign:"center"
           }}
@@ -44,11 +47,16 @@ export default function App() {
            options={{
             presentation:"modal",  
             headerTitleAlign:"center",
-            headerBackVisible:false
+            headerBackVisible:false,
+            headerTitle:"Add Account"
           }}
         />
-        <Stack.Screen name="View Item" component={ViewItem} />
+        <Stack.Screen name="View Item" component={ViewItem} options ={{  
+          headerTitleAlign:"center",
+          headerTitle: 'Account Credentials',
+          }} />
       </Stack.Navigator>
     </NavigationContainer>
+    </>
   );
 }
