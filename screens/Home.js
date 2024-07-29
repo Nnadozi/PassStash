@@ -42,7 +42,7 @@ const Home = ({ navigation }) => {
         keyExtractor={(item, index) => index.toString()}
       />
       <BannerAd
-      unitId={TestIds.BANNER}
+      unitId={process.env.EXPO_PUBLIC_UNIT_ID}
        size={BannerAdSize.BANNER}
        requestOptions={{
         requestNonPersonalizedAdsOnly:true,
