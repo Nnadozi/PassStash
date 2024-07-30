@@ -91,7 +91,7 @@ const ViewItem = ({ navigation, route }) => {
       )}
       <View style = {{position:"absolute",bottom:"10%",justifyContent:"center",alignItems:"center",width:"100%"}}>
       <BannerAd
-       unitId={process.env.EXPO_PUBLIC_UNIT_ID}
+       unitId={process.env.EXPO_PUBLIC_UNIT_IDTWO}
        size={BannerAdSize.LARGE_BANNER}
        requestOptions={{
         requestNonPersonalizedAdsOnly:true,

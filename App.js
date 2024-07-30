@@ -20,25 +20,11 @@ function AddItemIcon() {
   );
 }
 
-
 export default function App() {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
   const scheme = useColorScheme();
-
-  useEffect(() => {
-    const loadResources = async () => {
-      Animated.timing(fadeAnim, {
-        toValue:1,
-        duration:1000,
-        useNativeDriver:true,
-      }).start();
-    };
-    loadResources();
-  }, []);
   return (
     <>
     <StatusBar />
-    <Animated.View style = {{flex:1, opacity:fadeAnim}}>
     <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack.Navigator
         screenOptions={{
@@ -70,7 +56,6 @@ export default function App() {
           }} />
       </Stack.Navigator>
     </NavigationContainer>
-    </Animated.View>
     </>
   );
 }
