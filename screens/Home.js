@@ -1,4 +1,4 @@
-import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, Platform, StyleSheet, Text, View } from 'react-native';
 import React, { useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
@@ -42,7 +42,7 @@ const Home = ({ navigation }) => {
         keyExtractor={(item, index) => index.toString()}
       />
       <BannerAd
-      unitId={process.env.EXPO_PUBLIC_UNIT_ID}
+      unitId={Platform.OS ==="ios" ? process.env.EXPO_PUBLIC_UNIT_IDIOS : process.env.EXPO_PUBLIC_UNIT_ID}
        size={BannerAdSize.BANNER}
        requestOptions={{
         requestNonPersonalizedAdsOnly:true,

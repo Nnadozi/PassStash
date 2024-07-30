@@ -8,7 +8,9 @@
       "distribution": "internal",
       "env": {
         "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047",
-        "EXPO_PUBLIC_UNIT_IDTWO": "ca-app-pub-8705039555355167/6491593714"
+        "EXPO_PUBLIC_UNIT_IDTWO": "ca-app-pub-8705039555355167/6491593714",
+        "EXPO_PUBLIC_UNIT_IDIOS": "ca-app-pub-8705039555355167/9186039817",
+        "EXPO_PUBLIC_UNIT_IDIOSTWO": "ca-app-pub-8705039555355167/8198463021"
       }
     },
     "preview": {
@@ -18,13 +20,18 @@
       },
       "env": {
         "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047",
-        "EXPO_PUBLIC_UNIT_IDTWO": "ca-app-pub-8705039555355167/6491593714"
+        "EXPO_PUBLIC_UNIT_IDTWO": "ca-app-pub-8705039555355167/6491593714",
+        "EXPO_PUBLIC_UNIT_IDIOS": "ca-app-pub-8705039555355167/9186039817",
+        "EXPO_PUBLIC_UNIT_IDIOSTWO": "ca-app-pub-8705039555355167/8198463021"
+
       }
     },
     "production": {
       "env": {
         "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047",
-        "EXPO_PUBLIC_UNIT_IDTWO": "ca-app-pub-8705039555355167/6491593714"
+        "EXPO_PUBLIC_UNIT_IDTWO": "ca-app-pub-8705039555355167/6491593714",
+        "EXPO_PUBLIC_UNIT_IDIOS": "ca-app-pub-8705039555355167/9186039817",
+        "EXPO_PUBLIC_UNIT_IDIOSTWO": "ca-app-pub-8705039555355167/8198463021"
       }
     }
   }

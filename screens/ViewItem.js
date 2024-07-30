@@ -1,4 +1,4 @@
-import { Alert, Button, StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, Platform, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
@@ -91,7 +91,7 @@ const ViewItem = ({ navigation, route }) => {
       )}
       <View style = {{position:"absolute",bottom:"10%",justifyContent:"center",alignItems:"center",width:"100%"}}>
       <BannerAd
-       unitId={process.env.EXPO_PUBLIC_UNIT_IDTWO}
+       unitId={Platform.OS === "ios" ? process.env.EXPO_PUBLIC_UNIT_IDIOSTWO : process.env.EXPO_PUBLIC_UNIT_IDTWO}
        size={BannerAdSize.LARGE_BANNER}
        requestOptions={{
         requestNonPersonalizedAdsOnly:true,
