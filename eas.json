@@ -7,7 +7,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-3940256099942544/6300978111"
+        "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047"
       }
     },
     "preview": {
@@ -15,14 +15,14 @@
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-3940256099942544/6300978111"
+        "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047"
       }
     }
   },
   "submit": {
     "production": {
       "env": {
-        "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-3940256099942544/6300978111"
+        "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047"
       }
     }
   }
