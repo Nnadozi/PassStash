@@ -11,15 +11,14 @@
       }
     },
     "preview": {
-      "distribution": "internal"
-    },
-    "production": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
       "env": {
         "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047"
       }
-    }
-  },
-  "submit": {
+    },
     "production": {
       "env": {
         "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047"
