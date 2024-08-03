@@ -53,6 +53,7 @@ export default function App() {
         <Stack.Screen name="View Item" component={ViewItem} options ={{  
           headerTitleAlign:"center",
           headerTitle: 'Account Credentials',
+          headerBackTitle:"Back"
           }} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -62,7 +62,7 @@ const AddItem = () => {
       <Button disabled = {
         identifier.length === 0 || userName.length === 0 || password.length === 0 ? true : false
         } title="Create" onPress={() => setItem() }/>
-      <View style = {{margin:'2%'}}></View>
+      <View style = {{margin:'1%'}}></View>
       <Button title = "Cancel" onPress={() => navigation.goBack()} />
     </View>
   );

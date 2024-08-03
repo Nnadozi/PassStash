@@ -1,8 +1,8 @@
-import { Button, FlatList, Platform, StyleSheet, Text, View } from 'react-native';
-import React, { useState, useCallback} from 'react';
+import { Button, FlatList, Platform, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import React, { useState, useCallback, useRef} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
-import {BannerAd,BannerAdSize,TestIds} from "react-native-google-mobile-ads"
+import {BannerAd,BannerAdSize,TestIds, useForeground} from "react-native-google-mobile-ads"
 import {useTheme} from '@react-navigation/native';
 
 const Home = ({ navigation }) => {
@@ -25,6 +25,13 @@ const Home = ({ navigation }) => {
     }, [])
   );
 
+  const bannerRef = useRef(null);
+  useForeground(() => {
+    if (Platform.OS === 'ios') {
+      bannerRef.current?.load();
+    }
+  });
+  
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
       <FlatList
@@ -42,9 +49,10 @@ const Home = ({ navigation }) => {
         keyExtractor={(item, index) => index.toString()}
       />
       <BannerAd
+      ref={bannerRef}
       unitId={Platform.OS ==="ios" ? process.env.EXPO_PUBLIC_UNIT_IDIOS : process.env.EXPO_PUBLIC_UNIT_ID}
-       size={BannerAdSize.BANNER}
-       requestOptions={{
+      size={BannerAdSize.BANNER}
+      requestOptions={{
         requestNonPersonalizedAdsOnly:true,
        }}
        />

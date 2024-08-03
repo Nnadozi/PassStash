@@ -83,7 +83,7 @@ const ViewItem = ({ navigation, route }) => {
           {!showPassword && (
             <Button title="Authenticate to Reveal Password" onPress={authenticate} />
           )}
-          <View style = {{margin:'2%'}}></View>
+          <View style = {{margin:'1%'}}></View>
           <Button title='Remove Credentials' onPress={removeItem} />
         </View>
       ) : (
