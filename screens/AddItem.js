@@ -59,9 +59,13 @@ const AddItem = () => {
         maxLength={50}
       />
       <View style = {{marginVertical:"3%"}} />
-      <Button disabled = {
-        identifier.length === 0 || userName.length === 0 || password.length === 0 ? true : false
-        } title="Create" onPress={() => setItem() }/>
+      {
+          identifier.length === 0 || userName.length === 0 || password.length === 0 
+          ?
+          null
+          :
+          <Button title="Create" onPress={() => setItem()}/>
+      }
       <View style = {{margin:'1%'}}></View>
       <Button title = "Cancel" onPress={() => navigation.goBack()} />
     </View>
