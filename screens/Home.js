@@ -1,8 +1,8 @@
-import { Button, FlatList, Platform, StyleSheet, Text, useColorScheme, View } from 'react-native';
-import React, { useState, useCallback, useRef} from 'react';
+import { Button, FlatList, Platform, StyleSheet, Text,View } from 'react-native';
+import React, { useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
-import {BannerAd,BannerAdSize,TestIds, useForeground} from "react-native-google-mobile-ads"
+import {BannerAd,BannerAdSize} from "react-native-google-mobile-ads"
 import {useTheme} from '@react-navigation/native';
 
 const Home = ({ navigation }) => {
@@ -25,13 +25,6 @@ const Home = ({ navigation }) => {
     }, [])
   );
 
-  const bannerRef = useRef(null);
-  useForeground(() => {
-    if (Platform.OS === 'ios') {
-      bannerRef.current?.load();
-    }
-  });
-  
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
       {
@@ -61,7 +54,6 @@ const Home = ({ navigation }) => {
       }
       <View style = {{position:"absolute", bottom:"0%"}}>
         <BannerAd
-        ref={bannerRef}
         unitId={process.env.EXPO_PUBLIC_UNIT_ID}
         size={BannerAdSize.BANNER}
         requestOptions={{

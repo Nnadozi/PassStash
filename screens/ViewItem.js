@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useTheme } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
+import {BannerAd,BannerAdSize} from "react-native-google-mobile-ads"
 
 const ViewItem = ({ navigation, route }) => {
   const { key } = route.params;
@@ -74,6 +75,7 @@ const ViewItem = ({ navigation, route }) => {
   }
   
   const { colors } = useTheme();
+
   return (
     <View style={{ flex: 1 }}>
       {item ? (
@@ -95,6 +97,15 @@ const ViewItem = ({ navigation, route }) => {
       ) : (
         <Text>Loading...</Text>
       )}
+        <View style = {{position:"absolute", bottom:"0%"}}>
+          <BannerAd
+          unitId={process.env.EXPO_PUBLIC_UNIT_IDTWO}
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly:true,
+          }}
+          />
+        </View>
     </View>
   );
 };
