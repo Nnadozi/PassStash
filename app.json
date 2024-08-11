@@ -43,6 +43,7 @@
       ],
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.zixonn.UserPassHolder",
+      "versionCode": 2,
       "splash": {
         "image": "./assets/splash.png",
         "resizeMode": "contain",
