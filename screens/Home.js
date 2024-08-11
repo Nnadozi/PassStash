@@ -34,7 +34,17 @@ const Home = ({ navigation }) => {
   
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
-      <FlatList
+      {
+        itemsArray.length === 0 
+        ? 
+        <>
+        <View style = {{position:"absolute",top:"45%"}}>
+          <Text style = {[styles.emptyText,{color:colors.text}]}>You have no accounts.</Text>
+          <Text style =  {[styles.emptyText,{color:colors.text}]}>Press "Add" to get started.</Text>
+        </View>
+        </>
+        :
+        <FlatList
         style={{ width: "100%" }}
         data={itemsArray}
         renderItem={({ item, index }) =>
@@ -48,14 +58,17 @@ const Home = ({ navigation }) => {
         }
         keyExtractor={(item, index) => index.toString()}
       />
-      <BannerAd
-      ref={bannerRef}
-      unitId={Platform.OS ==="ios" ? process.env.EXPO_PUBLIC_UNIT_IDIOS : process.env.EXPO_PUBLIC_UNIT_ID}
-      size={BannerAdSize.BANNER}
-      requestOptions={{
-        requestNonPersonalizedAdsOnly:true,
-       }}
-       />
+      }
+      <View style = {{position:"absolute", bottom:"0%"}}>
+        <BannerAd
+        ref={bannerRef}
+        unitId={process.env.EXPO_PUBLIC_UNIT_ID}
+        size={BannerAdSize.BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly:true,
+        }}
+        />
+      </View>
     </View>
   );
 };
@@ -78,4 +91,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth:1
   },
+  emptyText:{
+    opacity:0.25,
+    textAlign:"center"
+  }
 });

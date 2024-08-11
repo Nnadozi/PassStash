@@ -1,21 +1,26 @@
-import { Alert, Button, Platform, StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
-import {BannerAd,BannerAdSize, TestIds} from "react-native-google-mobile-ads"
 import { useTheme } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
 
 const ViewItem = ({ navigation, route }) => {
   const { key } = route.params;
   const [item, setItem] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState(null);
 
   async function getItem() {
     try {
       const theItem = await AsyncStorage.getItem(key);
       if (theItem !== null) {
-        setItem(JSON.parse(theItem)); 
+        const parsedItem = JSON.parse(theItem);
+        setItem(parsedItem); 
+
+        const savedPassword = await SecureStore.getItemAsync(`${parsedItem.identifier}_password`);
+        setPassword(savedPassword);
       }
     } catch (error) {
       console.log(error);
@@ -36,6 +41,7 @@ const ViewItem = ({ navigation, route }) => {
             text: 'Yes',
             onPress: async () => {
               await AsyncStorage.removeItem(key);
+              await SecureStore.deleteItemAsync(`${item.identifier}_password`); 
               navigation.goBack();
             }
           },
@@ -66,38 +72,29 @@ const ViewItem = ({ navigation, route }) => {
       console.error('Authentication failed:', error);
     }
   }
-    
-  const {colors} = useTheme()
+  
+  const { colors } = useTheme();
   return (
     <View style={{ flex: 1 }}>
       {item ? (
         <View style={styles.con}>
-          <Text style={[styles.header,{color:colors.text}]}>Service</Text>
-          <Text style={[styles.text,{color:colors.text}]}>{item.identifier}</Text>
-          <Text style={[styles.header,{color:colors.text}]}>Username / Email</Text>
-          <Text style={[styles.text,{color:colors.text}]}>{item.userName}</Text>
-          <Text style={[styles.header,{color:colors.text}]}>Password</Text>
-          <Text style={[styles.text,{color:colors.text}]}>
-            {showPassword ? item.password : '*******'}
+          <Text style={[styles.header, { color: colors.text }]}>Service</Text>
+          <Text style={[styles.text, { color: colors.text }]}>{item.identifier}</Text>
+          <Text style={[styles.header, { color: colors.text }]}>Username / Email</Text>
+          <Text style={[styles.text, { color: colors.text }]}>{item.userName}</Text>
+          <Text style={[styles.header, { color: colors.text }]}>Password</Text>
+          <Text style={[styles.text, { color: colors.text }]}>
+            {showPassword ? password : '*******'}
           </Text>
           {!showPassword && (
             <Button title="Authenticate to Reveal Password" onPress={authenticate} />
           )}
-          <View style = {{margin:'1%'}}></View>
+          <View style={{ margin: '1%' }}></View>
           <Button title='Remove Credentials' onPress={removeItem} />
         </View>
       ) : (
         <Text>Loading...</Text>
       )}
-      <View style = {{position:"absolute",bottom:"10%",justifyContent:"center",alignItems:"center",width:"100%"}}>
-      <BannerAd
-       unitId={Platform.OS === "ios" ? process.env.EXPO_PUBLIC_UNIT_IDIOSTWO : process.env.EXPO_PUBLIC_UNIT_IDTWO}
-       size={BannerAdSize.LARGE_BANNER}
-       requestOptions={{
-        requestNonPersonalizedAdsOnly:true,
-       }}
-       />
-      </View>
     </View>
   );
 };
@@ -115,6 +112,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    marginVertical:"2%"
+    marginVertical: "2%",
   },
 });

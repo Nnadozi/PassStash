@@ -2,19 +2,34 @@
   "expo": {
     "name": "UserPass-Holder",
     "slug": "UserPass-Holder",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "dark": {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#000000"
+      }
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.zixonn.UserPassHolder",
-      "userInterfaceStyle": "automatic"
+      "userInterfaceStyle": "automatic",
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff",
+        "dark": {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#000000"
+        }
+      }
     },
     "android": {
       "userInterfaceStyle": "automatic",
@@ -27,7 +42,17 @@
         "android.permission.USE_FINGERPRINT"
       ],
       "softwareKeyboardLayoutMode": "pan",
-      "package": "com.zixonn.UserPassHolder"
+      "package": "com.zixonn.UserPassHolder",
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff",
+        "dark": {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#000000"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -55,12 +80,24 @@
             "allowBackup": false
           }
         }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to access your Face ID biometric data."
+        }
       ]
     ],
     "extra": {
       "eas": {
         "projectId": "f9ead03e-d964-44d0-9035-498a974653c1"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/f9ead03e-d964-44d0-9035-498a974653c1"
     }
   }
 }
