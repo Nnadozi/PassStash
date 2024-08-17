@@ -6,27 +6,15 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal",
-      "env": {
-        "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047",
-        "EXPO_PUBLIC_UNIT_IDTWO": "ca-app-pub-8705039555355167/6491593714"
-      }
+      "distribution": "internal"
     },
     "preview": {
       "distribution": "internal",
       "android": {
           "buildType": "app-bundle"
-      },
-      "env": {
-        "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047",
-        "EXPO_PUBLIC_UNIT_IDTWO": "ca-app-pub-8705039555355167/6491593714"
       }
     },
     "production": {
-      "env": {
-        "EXPO_PUBLIC_UNIT_ID": "ca-app-pub-8705039555355167/7879793047",
-        "EXPO_PUBLIC_UNIT_IDTWO": "ca-app-pub-8705039555355167/6491593714"
-      },
       "autoIncrement": true
     }
   }

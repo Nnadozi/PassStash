@@ -1,6 +1,6 @@
 {
   "name": "passstash",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "main": "expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -25,7 +25,8 @@
     "expo-build-properties": "~0.12.4",
     "expo-system-ui": "~3.0.7",
     "expo-updates": "~0.25.22",
-    "expo-secure-store": "~13.0.2"
+    "expo-secure-store": "~13.0.2",
+    "expo-constants": "~16.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

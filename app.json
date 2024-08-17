@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "UserPass-Holder",
+    "name": "PassStash",
     "slug": "UserPass-Holder",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -11,7 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff",
       "dark": {
-        "image": "./assets/splash.png",
+        "image": "./assets/splash_dark.png",
         "resizeMode": "contain",
         "backgroundColor": "#000000"
       }
@@ -25,7 +25,7 @@
         "resizeMode": "contain",
         "backgroundColor": "#ffffff",
         "dark": {
-          "image": "./assets/splash.png",
+          "image": "./assets/splash_dark.png",
           "resizeMode": "contain",
           "backgroundColor": "#000000"
         }
@@ -43,13 +43,12 @@
       ],
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.zixonn.UserPassHolder",
-      "versionCode": 2,
       "splash": {
         "image": "./assets/splash.png",
         "resizeMode": "contain",
         "backgroundColor": "#ffffff",
         "dark": {
-          "image": "./assets/splash.png",
+          "image": "./assets/splash_dark.png",
           "resizeMode": "contain",
           "backgroundColor": "#000000"
         }
@@ -68,8 +67,7 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-8705039555355167~6824123442",
-          "iosAppId": "ca-app-pub-8705039555355167~9773596701"
+          "androidAppId": ""
         }
       ],
       [
