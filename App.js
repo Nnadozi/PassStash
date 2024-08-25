@@ -1,22 +1,25 @@
-import React, { useRef, useEffect} from 'react';
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useTheme } from '@react-navigation/native';
 import Home from './screens/Home';
 import AddItem from './screens/AddItem';
 import ViewItem from './screens/ViewItem';
 import { useNavigation, DarkTheme,DefaultTheme } from '@react-navigation/native';
-import { Animated, Button,useColorScheme } from 'react-native';
+import { Button,TouchableOpacity,useColorScheme } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 const Stack = createNativeStackNavigator();
 
 function AddItemIcon() {
   const navigation = useNavigation();
   return (
-    <Button
+    <TouchableOpacity activeOpacity={0.75}>
+      <MaterialIcons 
+      name="add" size={27} color={useTheme().colors.text}
       onPress={() => navigation.navigate('Add Item')}
-      title = "Add"
-    />
+      />
+    </TouchableOpacity>
   );
 }
 
@@ -35,7 +38,7 @@ export default function App() {
           name="Items"
           component={Home}
           options={{
-            headerTitle: 'My Accounts',
+            headerTitle: 'My Credentials',
             headerLeft: () => <AddItemIcon />,
             headerTitleAlign:"center"
           }}

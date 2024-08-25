@@ -2,7 +2,7 @@
   "expo": {
     "name": "PassStash",
     "slug": "UserPass-Holder",
-    "version": "1.2.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -94,9 +94,6 @@
     },
     "runtimeVersion": {
       "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/f9ead03e-d964-44d0-9035-498a974653c1"
     }
   }
 }

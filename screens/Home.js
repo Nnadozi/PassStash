@@ -33,7 +33,7 @@ const Home = ({ navigation }) => {
         <>
         <View style = {{position:"absolute",top:"45%"}}>
           <Text style = {[styles.emptyText,{color:colors.text}]}>You have no accounts.</Text>
-          <Text style =  {[styles.emptyText,{color:colors.text}]}>Press "Add" to get started.</Text>
+          <Text style =  {[styles.emptyText,{color:colors.text}]}>Press "+" to get started.</Text>
         </View>
         </>
         :
