@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import {BannerAd,BannerAdSize} from "react-native-google-mobile-ads"
 import {useTheme} from '@react-navigation/native';
-
+import Account from "../components/Account.js"
 const Home = ({ navigation }) => {
 
   const {colors} = useTheme()
@@ -41,15 +41,11 @@ const Home = ({ navigation }) => {
         style={{ width: "100%" }}
         data={itemsArray}
         renderItem={({ item, index }) =>
-          <View style={[
-            styles.item, index === itemsArray.length - 1 && styles.lastItem,
-            {borderColor:colors.border,backgroundColor:colors.card}
-            ]}>
-            <Text style = {{maxWidth:"80%",color:colors.text}}>{item.substring(0,item.indexOf("_"))}</Text>
-            <Button title="→" onPress={() => navigation.navigate("View Item", { key: item })} />
-          </View>
+          <Account buttonPress={() => navigation.navigate("View Item", { key: item })}>
+            {item.substring(0,item.indexOf("_"))}
+          </Account>
         }
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(index) => index.toString()}
       />
       }
       <View style = {{position:"absolute", bottom:"0%"}}>
