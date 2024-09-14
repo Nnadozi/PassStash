@@ -41,7 +41,10 @@ const Home = ({ navigation }) => {
         style={{ width: "100%" }}
         data={itemsArray}
         renderItem={({ item, index }) =>
-          <Account buttonPress={() => navigation.navigate("View Item", { key: item })}>
+          <Account 
+          extraStyle={ index === itemsArray.length - 1 ? styles.lastItem : 
+            index === 0 ? styles.firstItem: null}  
+          buttonPress={() => navigation.navigate("View Item", { key: item })}>
             {item.substring(0,item.indexOf("_"))}
           </Account>
         }
@@ -78,6 +81,9 @@ const styles = StyleSheet.create({
   lastItem: {
     borderTopWidth: 1,
     borderBottomWidth:1
+  },
+  firstItem: {
+ 
   },
   emptyText:{
     opacity:0.25,

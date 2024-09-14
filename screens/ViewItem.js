@@ -59,20 +59,24 @@ const ViewItem = ({ navigation, route }) => {
     }
   }
 
-  async function authenticate() {
-    try {
-      const { success } = await LocalAuthentication.authenticateAsync({
-        promptMessage: 'Authenticate to reveal password',
-      });
+ async function authenticate() {
+  try {
+    const { success } = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Authenticate to reveal password',
+    });
 
-      if (success) {
-        setIsAuthenticated(true);
-        setShowPassword(true);
-      }
-    } catch (error) {
-      console.error('Authentication failed:', error);
+    if (success) {
+      setIsAuthenticated(true);
+      setShowPassword(true);
+    } else {
+      Alert.alert('Authentication Failed', 'Please try again.');
     }
+  } catch (error) {
+    console.error('Authentication failed:', error);
+    Alert.alert('Error', 'An error occurred during authentication.');
   }
+}
+
   
   const { colors } = useTheme();
 
@@ -92,7 +96,7 @@ const ViewItem = ({ navigation, route }) => {
             <Button title="Authenticate to Reveal Password" onPress={authenticate} />
           )}
           <View style={{ margin: '1%' }}></View>
-          <Button title='Remove Credentials' onPress={removeItem} />
+          <Button color={"red"} title='Remove Credentials' onPress={removeItem} />
         </View>
       ) : (
         <Text>Loading...</Text>
