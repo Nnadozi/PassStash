@@ -11,25 +11,26 @@ const AddItem = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const {colors} = useTheme();
-  
+  const { colors } = useTheme();
+
   async function setItem() {
     try {
       const allKeys = await AsyncStorage.getAllKeys();
       let serviceExists = allKeys.find(key => key === `${identifier}_info`);
       if (serviceExists !== undefined) {
         Alert.alert("Error", "This service already exists. Please use a different identifier.");
-        return; 
+        return;
       }
-      
+
       const item = {
         identifier: identifier,
         userName: userName,
+        createdAt: new Date().toISOString() 
       };
-      
+
       await AsyncStorage.setItem(`${identifier}_info`, JSON.stringify(item));
       await SecureStore.setItemAsync(`${identifier}_password`, password);
-      
+
       navigation.goBack();
     } catch (error) {
       console.log(error);
@@ -41,7 +42,9 @@ const AddItem = () => {
       <TextInput
         value={identifier}
         onChangeText={text => setIdentifier(text)}
-        style={[styles.input, { borderColor: colors.border, color: colors.text }]}
+        style={[styles.input, { borderColor: colors.card, color: colors.text,
+          backgroundColor:colors.card
+        }]}
         placeholder='Service (example: Youtube)'
         placeholderTextColor={colors.border}
         maxLength={50}
@@ -49,7 +52,9 @@ const AddItem = () => {
       <TextInput
         value={userName}
         onChangeText={text => setUserName(text)}
-        style={[styles.input, { borderColor: colors.border, color: colors.text }]}
+        style={[styles.input, { borderColor: colors.card, color: colors.text,
+          backgroundColor:colors.card
+        }]}
         placeholder='Username / Email (example: JohnDoe237)'
         placeholderTextColor={colors.border}
         maxLength={50}
@@ -57,7 +62,9 @@ const AddItem = () => {
       <TextInput
         value={password}
         onChangeText={text => setPassword(text)}
-        style={[styles.input, { borderColor: colors.border, color: colors.text }]}
+        style={[styles.input, { borderColor: colors.card, color: colors.text,
+          backgroundColor:colors.card
+        }]}
         placeholder='Password (example: Password123)'
         placeholderTextColor={colors.border}
         maxLength={50}
