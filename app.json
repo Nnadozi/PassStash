@@ -52,8 +52,7 @@
           "resizeMode": "contain",
           "backgroundColor": "#000000"
         }
-      },
-      "versionCode": 2
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -93,8 +92,6 @@
         "projectId": "f9ead03e-d964-44d0-9035-498a974653c1"
       }
     },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    }
+    "runtimeVersion": "2.0.0"  
   }
 }
