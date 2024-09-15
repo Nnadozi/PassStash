@@ -1,10 +1,11 @@
-import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, TextInput, View, TouchableOpacity, Clipboard } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useTheme } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
+import { MaterialIcons } from '@expo/vector-icons';
 
 const ViewItem = ({ navigation, route }) => {
   const { key } = route.params;
@@ -15,6 +16,7 @@ const ViewItem = ({ navigation, route }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newUserName, setNewUserName] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
 
   async function getItem() {
     try {
@@ -22,7 +24,7 @@ const ViewItem = ({ navigation, route }) => {
       if (theItem !== null) {
         const parsedItem = JSON.parse(theItem);
         setItem(parsedItem);
-        setNewUserName(parsedItem.userName); // Initialize with existing data
+        setNewUserName(parsedItem.userName);
 
         const savedPassword = await SecureStore.getItemAsync(`${parsedItem.identifier}_password`);
         setPassword(savedPassword);
@@ -106,16 +108,23 @@ const ViewItem = ({ navigation, route }) => {
 
       if (newPassword) {
         await SecureStore.setItemAsync(`${item.identifier}_password`, newPassword);
-        setPassword(newPassword); // Update state to show new password
+        setPassword(newPassword); 
       }
 
       setItem(updatedItem);
       setIsEditing(false);
-      setShowPassword(true); // Ensure password is shown after saving
+      setShowPassword(true); 
     } catch (error) {
       console.log(error);
     }
   }
+
+  const copyToClipboard = () => {
+    if (password) {
+      Clipboard.setString(password);
+      setSnackbarVisible(true);
+    }
+  };
 
   const { colors } = useTheme();
 
@@ -128,9 +137,7 @@ const ViewItem = ({ navigation, route }) => {
           <Text style={[styles.header, { color: colors.text }]}>Username / Email</Text>
           {isEditing ? (
             <TextInput
-              style={[styles.input, { borderColor: colors.card, color: colors.text,
-                backgroundColor:colors.card
-              }]}
+              style={[styles.input, { borderColor: colors.card, color: colors.text, backgroundColor: colors.card }]}
               value={newUserName}
               onChangeText={text => setNewUserName(text)}
               placeholder='Username / Email'
@@ -140,10 +147,17 @@ const ViewItem = ({ navigation, route }) => {
           ) : (
             <Text style={[styles.text, { color: colors.text }]}>{item.userName}</Text>
           )}
-          <Text style={[styles.header, { color: colors.text }]}>Password</Text>
-          <Text style={[styles.text, { color: colors.text }]}>
-            {showPassword ? password : '*******'}
-          </Text>
+          <View style={styles.passwordHeaderContainer}>
+            <Text style={[styles.header, { color: colors.text }]}>Password</Text>
+            {showPassword && (
+              <TouchableOpacity onPress={copyToClipboard}>
+                <MaterialIcons name="content-copy" size={15} color={colors.text} />
+              </TouchableOpacity>
+            )}
+          </View>
+          <View style={styles.passwordContainer}>
+            <Text style={[styles.text, { color: colors.text }]}>{showPassword ? password : '*******'}</Text>
+          </View>
           {!showPassword && !isEditing && (
             <>
               <Button title="Authenticate to Reveal Password" onPress={authenticate} />
@@ -155,9 +169,7 @@ const ViewItem = ({ navigation, route }) => {
           ) : (
             <>
               <TextInput
-                style={[styles.input, { borderColor: colors.card, color: colors.text,
-                  backgroundColor:colors.card
-                 }]}
+                style={[styles.input, { borderColor: colors.card, color: colors.text, backgroundColor: colors.card }]}
                 value={newPassword}
                 onChangeText={text => setNewPassword(text)}
                 placeholder='New Password'
@@ -212,5 +224,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
+  },
+  passwordHeaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

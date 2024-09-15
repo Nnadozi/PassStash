@@ -14,7 +14,7 @@ const Account = ({ children, buttonPress, extraStyle, createdAt }) => {
                 </Text>
             </View>
             <TouchableOpacity onPress={buttonPress}>
-                <AntDesign name="arrowright" size={23} color={colors.text} />
+                <AntDesign name="arrowright" size={20} color={colors.text} />
             </TouchableOpacity>
         </View>
     );
@@ -24,10 +24,10 @@ export default Account;
 
 const styles = StyleSheet.create({
     myText: {
-        maxWidth: "80%",
+     
     },
     mySubText: {
-        maxWidth: "80%",
+        maxWidth: "90%",
         fontSize: 12,
         opacity: 0.5
     },

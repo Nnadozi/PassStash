@@ -5,6 +5,16 @@ import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 
+const generateRandomPassword = (length = 16) => {
+  const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}|;:,.<>?";
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset[randomIndex];
+  }
+  return password;
+};
+
 const AddItem = () => {
   const navigation = useNavigation();
   const [identifier, setIdentifier] = useState('');
@@ -43,7 +53,7 @@ const AddItem = () => {
         value={identifier}
         onChangeText={text => setIdentifier(text)}
         style={[styles.input, { borderColor: colors.card, color: colors.text,
-          backgroundColor:colors.card
+          backgroundColor: colors.card
         }]}
         placeholder='Service (example: Youtube)'
         placeholderTextColor={colors.border}
@@ -53,7 +63,7 @@ const AddItem = () => {
         value={userName}
         onChangeText={text => setUserName(text)}
         style={[styles.input, { borderColor: colors.card, color: colors.text,
-          backgroundColor:colors.card
+          backgroundColor: colors.card
         }]}
         placeholder='Username / Email (example: JohnDoe237)'
         placeholderTextColor={colors.border}
@@ -63,21 +73,29 @@ const AddItem = () => {
         value={password}
         onChangeText={text => setPassword(text)}
         style={[styles.input, { borderColor: colors.card, color: colors.text,
-          backgroundColor:colors.card
+          backgroundColor: colors.card
         }]}
         placeholder='Password (example: Password123)'
         placeholderTextColor={colors.border}
         maxLength={50}
         secureTextEntry
       />
-      <View style={{ marginVertical: "3%" }} />
-      {
-        identifier.length === 0 || userName.length === 0 || password.length === 0
-          ? null
-          : <Button title="Create" onPress={setItem} />
-      }
-      <View style={{ margin: '1%' }}></View>
-      <Button title="Cancel" onPress={() => navigation.goBack()} />
+      <View style={styles.buttonContainer}>
+        {
+          identifier.length === 0 || userName.length === 0 || password.length === 0
+            ? null
+            : <Button title="Create" onPress={setItem} />
+        }
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Cancel" onPress={() => navigation.goBack()} />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Generate Password"
+          onPress={() => setPassword(generateRandomPassword())}
+        />
+      </View>
     </View>
   );
 }
@@ -99,5 +117,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
+  },
+  buttonContainer: {
+    width: '75%',
+    marginVertical: "1%",
   },
 });
