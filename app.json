@@ -23,12 +23,7 @@
       "splash": {
         "image": "./assets/splash.png",
         "resizeMode": "contain",
-        "backgroundColor": "#ffffff",
-        "dark": {
-          "image": "./assets/splash_dark.png",
-          "resizeMode": "contain",
-          "backgroundColor": "#000000"
-        }
+        "backgroundColor": "#ffffff"
       }
     },
     "android": {
@@ -46,12 +41,7 @@
       "splash": {
         "image": "./assets/splash.png",
         "resizeMode": "contain",
-        "backgroundColor": "#ffffff",
-        "dark": {
-          "image": "./assets/splash_dark.png",
-          "resizeMode": "contain",
-          "backgroundColor": "#000000"
-        }
+        "backgroundColor": "#ffffff"
       }
     },
     "web": {
@@ -61,7 +51,7 @@
       [
         "expo-local-authentication",
         {
-          "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to access your Face ID biometric data."
         }
       ],
       [
