@@ -18,7 +18,8 @@ const MyInput = (props) => {
           borderWidth: 1, 
           borderColor: colors.border,
           ...(props.thin ? { height: "12%", padding: "3%" } : {}) 
-        }
+        },
+        props.style
       ]}
       placeholder={props.placeholder}
       placeholderTextColor={colors.border}
