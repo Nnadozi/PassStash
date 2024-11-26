@@ -1,11 +1,13 @@
-import { Alert, Button, StyleSheet, Text, TextInput, View, TouchableOpacity, Clipboard } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { Alert, Button, StyleSheet, Text, View, TouchableOpacity, Clipboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
-import { useTheme } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
-import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
+import { useTheme } from '@react-navigation/native';
+import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 import { MaterialIcons } from '@expo/vector-icons';
+import MyText from '../components/MyText';
+import MyInput from '../components/MyInput';
 
 const ViewItem = ({ navigation, route }) => {
   const { key } = route.params;
@@ -17,32 +19,33 @@ const ViewItem = ({ navigation, route }) => {
   const [newUserName, setNewUserName] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [snackbarVisible, setSnackbarVisible] = useState(false);
-
-  async function getItem() {
-    try {
-      const theItem = await AsyncStorage.getItem(key);
-      if (theItem !== null) {
-        const parsedItem = JSON.parse(theItem);
-        setItem(parsedItem);
-        setNewUserName(parsedItem.userName);
-
-        const savedPassword = await SecureStore.getItemAsync(`${parsedItem.identifier}_password`);
-        setPassword(savedPassword);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const { colors } = useTheme();
 
   useEffect(() => {
-    getItem();
-  }, []);
+    const getItem = async () => {
+      try {
+        const theItem = await AsyncStorage.getItem(key);
+        if (theItem) {
+          const parsedItem = JSON.parse(theItem);
+          setItem(parsedItem);
+          setNewUserName(parsedItem.userName);
 
-  async function removeItem() {
+          const savedPassword = await SecureStore.getItemAsync(`${parsedItem.identifier}_password`);
+          setPassword(savedPassword);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getItem();
+  }, [key]);
+
+  const removeItem = async () => {
     try {
       Alert.alert(
-        "Delete Credentials",
-        "Are you sure you want to delete these user credentials?",
+        'Delete Credentials',
+        'Are you sure you want to delete these service credentials?',
         [
           {
             text: 'Yes',
@@ -54,7 +57,6 @@ const ViewItem = ({ navigation, route }) => {
           },
           {
             text: 'No',
-            onPress: () => console.log('Cancel Pressed'),
             style: 'cancel',
           },
         ],
@@ -63,9 +65,9 @@ const ViewItem = ({ navigation, route }) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  async function authenticate() {
+  const authenticate = async () => {
     try {
       const { success } = await LocalAuthentication.authenticateAsync({
         promptMessage: 'Authenticate to reveal password',
@@ -81,9 +83,9 @@ const ViewItem = ({ navigation, route }) => {
       console.error('Authentication failed:', error);
       Alert.alert('Error', 'An error occurred during authentication.');
     }
-  }
+  };
 
-  async function editItem() {
+  const editItem = async () => {
     try {
       const { success } = await LocalAuthentication.authenticateAsync({
         promptMessage: 'Authenticate to edit credentials',
@@ -99,25 +101,25 @@ const ViewItem = ({ navigation, route }) => {
       console.error('Authentication failed:', error);
       Alert.alert('Error', 'An error occurred during authentication.');
     }
-  }
+  };
 
-  async function saveChanges() {
+  const saveChanges = async () => {
     try {
       const updatedItem = { ...item, userName: newUserName };
       await AsyncStorage.setItem(key, JSON.stringify(updatedItem));
 
       if (newPassword) {
         await SecureStore.setItemAsync(`${item.identifier}_password`, newPassword);
-        setPassword(newPassword); 
+        setPassword(newPassword);
       }
 
       setItem(updatedItem);
       setIsEditing(false);
-      setShowPassword(true); 
+      setShowPassword(true);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const copyToClipboard = () => {
     if (password) {
@@ -126,69 +128,66 @@ const ViewItem = ({ navigation, route }) => {
     }
   };
 
-  const { colors } = useTheme();
-
   return (
     <View style={{ flex: 1 }}>
       {item ? (
-        <View style={styles.con}>
-          <Text style={[styles.header, { color: colors.text }]}>Service</Text>
-          <Text style={[styles.text, { color: colors.text }]}>{item.identifier}</Text>
-          <Text style={[styles.header, { color: colors.text }]}>Username / Email</Text>
+        <View style={styles.container}>
+          <MyText fontSize={16} bold={true}>Service</MyText>
+          <MyText fontSize={16} style={styles.textMargin}>{item.identifier}</MyText>
+          <MyText fontSize={16} bold={true}>Username / Email</MyText>
           {isEditing ? (
-            <TextInput
-              style={[styles.input, { borderColor: colors.card, color: colors.text, backgroundColor: colors.card }]}
+            <MyInput
               value={newUserName}
-              onChangeText={text => setNewUserName(text)}
-              placeholder='Username / Email'
-              placeholderTextColor={colors.border}
+              onChangeText={setNewUserName}
+              placeholder="Username / Email"
               maxLength={50}
+              thin={true}
             />
           ) : (
-            <Text style={[styles.text, { color: colors.text }]}>{item.userName}</Text>
+            <MyText fontSize={16} style={styles.textMargin}>{item.userName}</MyText>
           )}
           <View style={styles.passwordHeaderContainer}>
-            <Text style={[styles.header, { color: colors.text }]}>Password</Text>
+            <MyText fontSize={16} bold={true}>Password</MyText>
             {showPassword && (
-              <TouchableOpacity onPress={copyToClipboard}>
+              <TouchableOpacity style={styles.iconContainer} onPress={copyToClipboard}>
                 <MaterialIcons name="content-copy" size={15} color={colors.text} />
               </TouchableOpacity>
             )}
           </View>
-          <View style={styles.passwordContainer}>
-            <Text style={[styles.text, { color: colors.text }]}>{showPassword ? password : '*******'}</Text>
-          </View>
+          {isEditing ? (
+            <MyInput
+              value={newPassword}
+              onChangeText={setNewPassword}
+              placeholder="New Password"
+              secureTextEntry={true}
+              maxLength={50}
+              thin={true}
+            />
+          ) : (
+            <MyText fontSize={16} style={styles.textMargin}>{showPassword ? password : '*******'}</MyText>
+          )}
           {!showPassword && !isEditing && (
             <>
               <Button title="Authenticate to Reveal Password" onPress={authenticate} />
-              <View style={{ margin: '1%' }}></View>
+              <View style={styles.spacing} />
             </>
           )}
           {!isEditing ? (
             <Button title="Edit Credentials" onPress={editItem} />
           ) : (
             <>
-              <TextInput
-                style={[styles.input, { borderColor: colors.card, color: colors.text, backgroundColor: colors.card }]}
-                value={newPassword}
-                onChangeText={text => setNewPassword(text)}
-                placeholder='New Password'
-                placeholderTextColor={colors.border}
-                secureTextEntry
-                maxLength={50}
-              />
               <Button title="Save Changes" onPress={saveChanges} />
-              <View style={{ margin: '1%' }}></View>
+              <View style={styles.spacing} />
               <Button title="Cancel" onPress={() => setIsEditing(false)} />
             </>
           )}
-          <View style={{ margin: '1%' }}></View>
-          <Button title='Remove Credentials' onPress={removeItem} />
+          <View style={styles.spacing} />
+          <Button title="Remove Credentials" onPress={removeItem} />
         </View>
       ) : (
         <Text>Loading...</Text>
       )}
-      <View style={{ position: "absolute", bottom: "0%" }}>
+      <View style={styles.adContainer}>
         <BannerAd
           unitId={process.env.EXPO_PUBLIC_UNIT_IDTWO}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
@@ -204,33 +203,26 @@ const ViewItem = ({ navigation, route }) => {
 export default ViewItem;
 
 const styles = StyleSheet.create({
-  con: {
+  container: {
     marginVertical: '5%',
     marginHorizontal: '5%',
   },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  text: {
-    fontSize: 16,
-    marginVertical: "2%",
-  },
-  input: {
-    width: '100%',
-    paddingVertical: "2%",
-    paddingHorizontal: "3%",
-    marginVertical: "2%",
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+  textMargin: {
+    marginVertical: '3%',
   },
   passwordHeaderContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  passwordContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  iconContainer: {
+    marginHorizontal: '2%',
+  },
+  spacing: {
+    margin: '1%',
+  },
+  adContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
   },
 });

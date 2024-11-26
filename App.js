@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer, useTheme } from '@react-navigation/native';
 import Home from './screens/Home';
 import AddItem from './screens/AddItem';
 import ViewItem from './screens/ViewItem';
 import { useNavigation, DarkTheme, DefaultTheme } from '@react-navigation/native';
-import { TouchableOpacity, useColorScheme, Alert, BackHandler, Platform, Animated } from 'react-native'; 
+import { TouchableOpacity, useColorScheme, Alert, BackHandler, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import Entypo from '@expo/vector-icons/Entypo';
-import * as LocalAuthentication from 'expo-local-authentication'; 
+import * as LocalAuthentication from 'expo-local-authentication';
 import * as NavigationBar from 'expo-navigation-bar';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -19,7 +19,9 @@ function AddItemIcon() {
   return (
     <TouchableOpacity activeOpacity={0.75}>
       <Entypo
-        name="add-to-list" size={27} color={useTheme().colors.text}
+        name="plus"
+        size={27}
+        color={useTheme().colors.text}
         onPress={() => navigation.navigate('Add Item')}
       />
     </TouchableOpacity>
@@ -27,8 +29,7 @@ function AddItemIcon() {
 }
 
 export default function App() {
-  const [isAppReady, setAppReady] = useState(false); 
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const [isAppReady, setAppReady] = useState(false);
   const scheme = useColorScheme();
 
   useEffect(() => {
@@ -55,33 +56,24 @@ export default function App() {
     }
   };
 
-  async function prepare() {
+  const prepare = async () => {
     try {
       await SplashScreen.preventAutoHideAsync();
       setTimeout(async () => {
-        setAppReady(true); 
-        fadeIn(); 
-        await SplashScreen.hideAsync(); 
-      },1000);
+        setAppReady(true);
+        await SplashScreen.hideAsync();
+      }, 1000);
     } catch (e) {
       console.warn(e);
     }
-  }
-
-  const fadeIn = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 1, 
-      duration: 250, 
-      useNativeDriver: true,
-    }).start();
   };
 
   if (!isAppReady) {
-    return null; 
+    return null;
   }
 
   return (
-    <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
+    <>
       <StatusBar />
       <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack.Navigator
@@ -93,31 +85,31 @@ export default function App() {
             name="Items"
             component={Home}
             options={{
-              headerTitle: 'My Accounts',
-              headerTitleAlign: "center",
-              headerLeft: () => <AddItemIcon/>,
+              headerTitle: 'My Services',
+              headerTitleAlign: 'center',
+              headerLeft: () => <AddItemIcon />,
             }}
           />
           <Stack.Screen
             name="Add Item"
             component={AddItem}
             options={{
-              headerTitleAlign: "center",
+              headerTitleAlign: 'center',
               headerBackVisible: false,
-              headerTitle: "Add Account",
+              headerTitle: 'Add Service',
             }}
           />
           <Stack.Screen
             name="View Item"
             component={ViewItem}
             options={{
-              headerTitleAlign: "center",
-              headerTitle: 'Account Credentials',
-              headerBackTitle: "Back"
+              headerTitleAlign: 'center',
+              headerTitle: 'Service Credentials',
+              headerBackTitle: 'Back',
             }}
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </Animated.View>
+    </>
   );
 }
