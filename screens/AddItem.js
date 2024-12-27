@@ -1,125 +1,75 @@
-import { StyleSheet, TextInput, View, Button, Alert, Text } from 'react-native';
+import { StyleSheet, View, Button, Alert } from 'react-native';
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
-
-const generateRandomPassword = (length = 16) => {
-  const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}|;:,.<>?";
-  let password = "";
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * charset.length);
-    password += charset[randomIndex];
-  }
-  return password;
-};
+import MyInput from "../components/MyInput";
+import PasswordCustomizationModal from "../components/PasswordCustomizationModal"
 
 const AddItem = () => {
   const navigation = useNavigation();
   const [identifier, setIdentifier] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-
+  const [modalVisible, setModalVisible] = useState(false);
   const { colors } = useTheme();
 
-  async function setItem() {
+  const setItem = async () => {
+    if (!/^[a-zA-Z0-9]*$/.test(identifier)) {
+      Alert.alert("Error", "Service name must only contain alphanumeric characters (no spaces, special characters, etc)");
+      return;
+    }
+  
     try {
       const allKeys = await AsyncStorage.getAllKeys();
-      let serviceExists = allKeys.find(key => key === `${identifier}_info`);
-      if (serviceExists !== undefined) {
+      if (allKeys.includes(`${identifier}_info`)) {
         Alert.alert("Error", "This service already exists. Please use a different identifier.");
         return;
       }
-
-      const item = {
-        identifier: identifier,
-        userName: userName,
-        createdAt: new Date().toISOString() 
-      };
-
+      const item = { identifier, userName, createdAt: new Date().toISOString() };
       await AsyncStorage.setItem(`${identifier}_info`, JSON.stringify(item));
       await SecureStore.setItemAsync(`${identifier}_password`, password);
-
       navigation.goBack();
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+  
 
   return (
     <View style={styles.container}>
-      <TextInput
-        value={identifier}
-        onChangeText={text => setIdentifier(text)}
-        style={[styles.input, { borderColor: colors.card, color: colors.text,
-          backgroundColor: colors.card
-        }]}
-        placeholder='Service (example: Youtube)'
-        placeholderTextColor={colors.border}
-        maxLength={50}
-      />
-      <TextInput
-        value={userName}
-        onChangeText={text => setUserName(text)}
-        style={[styles.input, { borderColor: colors.card, color: colors.text,
-          backgroundColor: colors.card
-        }]}
-        placeholder='Username / Email (example: JohnDoe237)'
-        placeholderTextColor={colors.border}
-        maxLength={50}
-      />
-      <TextInput
-        value={password}
-        onChangeText={text => setPassword(text)}
-        style={[styles.input, { borderColor: colors.card, color: colors.text,
-          backgroundColor: colors.card
-        }]}
-        placeholder='Password (example: Password123)'
-        placeholderTextColor={colors.border}
-        maxLength={50}
-        secureTextEntry
-      />
+      <MyInput value={identifier} onChangeText={setIdentifier} placeholder="Service Name" maxLength={50} />
+      <MyInput value={userName} onChangeText={setUserName} placeholder="Username or Email" maxLength={50} />
+      <MyInput value={password} onChangeText={setPassword} placeholder="Password" maxLength={50} />
       <View style={styles.buttonContainer}>
-        {
-          identifier.length === 0 || userName.length === 0 || password.length === 0
-            ? null
-            : <Button title="Create" onPress={setItem} />
-        }
+        {identifier && userName && password ? <Button title="Add" onPress={setItem} /> : null}
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Cancel" onPress={() => navigation.goBack()} />
+        <Button title="Generate Password" onPress={() => setModalVisible(true)} />
       </View>
       <View style={styles.buttonContainer}>
-        <Button
-          title="Generate Password"
-          onPress={() => setPassword(generateRandomPassword())}
-        />
+        <Button title="Cancel" onPress={navigation.goBack} />
       </View>
+
+      <PasswordCustomizationModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onGenerate={(newPassword) => setPassword(newPassword)}
+      />
     </View>
   );
-}
+};
 
 export default AddItem;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "10%",
-  },
-  input: {
-    width: '100%',
-    paddingVertical: "5%",
-    paddingHorizontal: "2%",
-    marginVertical: "2%",
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+    alignItems: 'center',
+    padding: '5%',
   },
   buttonContainer: {
-    width: '75%',
-    marginVertical: "1%",
+    width: '100%',
+    marginVertical: '1%',
   },
 });
