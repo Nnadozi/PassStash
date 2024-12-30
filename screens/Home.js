@@ -57,12 +57,16 @@ const Home = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.searchContainer}>
-                <MyInput
-                style = {{padding:"3%"}}
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChangeText={handleSearch}
-                />
+            {
+                itemsArray.length > 0 && (
+                    <MyInput
+                    style = {{padding:"3%"}}
+                        placeholder="Search..."
+                        value={searchQuery}
+                        onChangeText={handleSearch}
+                    />
+                )
+            }
             </View>
             {filteredData.length === 0 ? (
                 <View style={styles.emptyContainer}>

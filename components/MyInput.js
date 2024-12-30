@@ -22,7 +22,7 @@ const MyInput = (props) => {
         props.style
       ]}
       placeholder={props.placeholder}
-      placeholderTextColor={colors.border}
+      placeholderTextColor={"gray"}
       maxLength={props.maxLength}
       textAlign="left"
       keyboardType={props.keyboardType}

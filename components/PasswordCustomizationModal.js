@@ -36,10 +36,10 @@ const PasswordCustomizationModal = ({ visible, onClose, onGenerate }) => {
 
   const { colors } = useTheme()
   return (
-    <Modal visible={visible} animationType="slide" transparent={true}>
+    <Modal visible={visible} animationType="fade" transparent={true}>
       <View style={styles.modalOverlay}>
         <View style={[styles.modalContent, {backgroundColor:colors.card}]}>
-          <MyText style={{marginVertical:"5%"}} fontSize={20} bold = {true}>Customize Password</MyText>
+          <MyText style={{marginVertical:"3%"}} fontSize={20} bold = {true}>Customize Password</MyText>
           <MyInput
             value={passwordLength.toString()}
             onChangeText={handleLengthChange}
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
   },
   modalContent: {
     width: '80%',
