@@ -50,12 +50,6 @@
         }
       ],
       [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-8705039555355167~6824123442"
-        }
-      ],
-      [
         "expo-build-properties",
         {
           "android": {

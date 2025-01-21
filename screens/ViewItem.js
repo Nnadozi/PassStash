@@ -4,7 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
 import { useTheme } from '@react-navigation/native';
-import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 import { MaterialIcons } from '@expo/vector-icons';
 import MyText from '../components/MyText';
 import MyInput from '../components/MyInput';
@@ -187,15 +186,6 @@ const ViewItem = ({ navigation, route }) => {
       ) : (
         <Text>Loading...</Text>
       )}
-      <View style={styles.adContainer}>
-        <BannerAd
-          unitId={process.env.EXPO_PUBLIC_UNIT_IDTWO}
-          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-          }}
-        />
-      </View>
     </View>
   );
 };
@@ -219,10 +209,5 @@ const styles = StyleSheet.create({
   },
   spacing: {
     margin: '1%',
-  },
-  adContainer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-  },
+  }
 });

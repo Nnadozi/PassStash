@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { StyleSheet, View, SectionList, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
-import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 import { useTheme } from '@react-navigation/native';
 import Account from '../components/Account.js';
 import MyText from "../components/MyText.js";
@@ -101,15 +100,6 @@ const Home = ({ navigation }) => {
                     contentContainerStyle={styles.contentContainer}
                 />
             )}
-            <View style={{ position: "absolute", bottom: "0%" }}>
-                <BannerAd
-                    unitId={process.env.EXPO_PUBLIC_UNIT_ID}
-                    size={BannerAdSize.BANNER}
-                    requestOptions={{
-                        requestNonPersonalizedAdsOnly: true,
-                    }}
-                />
-            </View>
         </View>
     );
 };
