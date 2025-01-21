@@ -4,18 +4,3 @@ PassStash is your secure vault for storing and managing all your account credent
 
 Download for Android: https://play.google.com/store/apps/details?id=com.zixonn.UserPassHolder
 
-## Installation and Setup Instructions
-
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
-
-Installation:
-
-`npm install`  
-
-To Run Test Suite:  
-
-`npx expo start` 
-
-To Visit App: Scan QR from console
-
-**YOU NEED EXPO GO INSTALLED ON YOUR PHONE TO ACCESS**
