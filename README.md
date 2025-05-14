@@ -5,6 +5,12 @@ PassStash is your secure vault for storing and managing all your account credent
 ## Built With
 React Native, Expo, JavaScript
 
+ ## Pictures
+<img src="https://github.com/user-attachments/assets/72c78b08-76c0-4878-855f-1b6acdf60937" alt="1" width="200"/>
+<img src="https://github.com/user-attachments/assets/cf715864-44e5-4492-afd8-511194f3c322" alt="2" width="200"/>
+<img src="https://github.com/user-attachments/assets/d8721aa0-953c-4c92-989a-3942b95808f0" alt="3" width="200"/>
+<img src="https://github.com/user-attachments/assets/89d7488c-0e1b-4776-bcd2-ac6d8e799350" alt="4" width="200"/>
+
 ## Installation and Setup Instructions
 
 Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
@@ -18,11 +24,5 @@ To Run Test Suite:
 `px expo start` 
 
 To Visit App: Scan QR from the console with the Expo Go App
-
- ## Pictures
-<img src="https://github.com/user-attachments/assets/72c78b08-76c0-4878-855f-1b6acdf60937" alt="1" width="200"/>
-<img src="https://github.com/user-attachments/assets/cf715864-44e5-4492-afd8-511194f3c322" alt="2" width="200"/>
-<img src="https://github.com/user-attachments/assets/d8721aa0-953c-4c92-989a-3942b95808f0" alt="3" width="200"/>
-<img src="https://github.com/user-attachments/assets/89d7488c-0e1b-4776-bcd2-ac6d8e799350" alt="4" width="200"/>
 
 
