@@ -1,6 +1,13 @@
 # PassStash
-
 PassStash is your secure vault for storing and managing all your account credentials in one place. It makes saving and accessing your passwords easy, with everything encrypted automatically to keep your information safe. The app’s intuitive design ensures that even those without technical know-how can manage their login details effortlessly.
+
+## Features
+- Create / delete accounts
+- Manage accounts
+- Search query
+- Dark mode
+- Password generator
+- Biometric Authentication
 
 ## Built With
 React Native, Expo, JavaScript
