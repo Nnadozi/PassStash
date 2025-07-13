@@ -28,7 +28,7 @@ Installation:
 
 To Run Test Suite:  
 
-`px expo start` 
+`npx expo start` 
 
 To Visit App: Scan QR from the console with the Expo Go App
 
