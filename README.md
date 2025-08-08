@@ -1,8 +1,9 @@
-# PassStash
+# <img src="https://github.com/user-attachments/assets/0fa57f0c-9805-4455-824b-1b0482707ae1" alt="Sumitt app icon" width="27.5" height="27.5" style="border-radius:100px; vertical-align:middle;"/> PassStash
+
 PassStash is your secure vault for storing and managing all your account credentials in one place. It makes saving and accessing your passwords easy, with everything encrypted automatically to keep your information safe. The app’s intuitive design ensures that even those without technical know-how can manage their login details effortlessly.
 
 ## Features
-- Create / delete accounts
+- Create/delete accounts
 - Manage accounts
 - Search query
 - Dark mode
@@ -30,6 +31,6 @@ To Run Test Suite:
 
 `npx expo start` 
 
-To Visit App: Scan QR from the console with the Expo Go App
+To Visit App: Scan the QR from the console with the Expo Go App
 
 
